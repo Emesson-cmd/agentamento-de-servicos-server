@@ -1,0 +1,15 @@
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOGI3MWI4Zi02ZDY5LTQwYjAtOGQ2OC1iOWQwY2M3NWFmMGMiLCJpYXQiOjE3NjQxOTk2NDQsImV4cCI6MTc2NDIwMzI0NH0.UJy3QRunGYzWrHMnPJg-vMW2n9-U4TcqAdikD9rnwHQ
+
+###
+GET http://localhost:3000/users/me
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### user not found
+GET http://localhost:3000/users/me
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### user not authorized
+GET http://localhost:3000/users/me
+Content-Type: application/json

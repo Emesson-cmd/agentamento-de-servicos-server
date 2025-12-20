@@ -1,0 +1,39 @@
+import { UserGateway } from 'src/domain/repositories/user.gateway';
+import { prismaClient } from '../client.prisma';
+import { UserPrismaModelToUserEntityMapper } from './model/mappers/user-prisma-model-to-user-entity.mapper';
+import { User } from 'src/domain/entities/user.entity';
+import { UserEntityToUserPrismaModelMapper } from './model/mappers/user-entity-to-user-prisma-model.mapper';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class UserPrismaRepository extends UserGateway {
+  public constructor() {
+    super();
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const model = await prismaClient.user.findUnique({ where: { email } });
+
+    if (!model) return null;
+
+    const user = UserPrismaModelToUserEntityMapper.map(model);
+
+    return user;
+  }
+
+  async findById(id: string): Promise<User | null> {
+    const model = await prismaClient.user.findUnique({ where: { id } });
+
+    if (!model) return null;
+
+    const user = UserPrismaModelToUserEntityMapper.map(model);
+
+    return user;
+  }
+
+  async create(user: User): Promise<void> {
+    const model = UserEntityToUserPrismaModelMapper.map(user);
+
+    await prismaClient.user.create({ data: model });
+  }
+}

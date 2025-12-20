@@ -1,0 +1,9 @@
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MWQ1MDg3My02ZDcxLTQxZWYtODgyNS0xNTJiZWQ1Y2Q1YjgiLCJpYXQiOjE3NjQwODE1MzQsImV4cCI6MTc2NDY4NjMzNH0.QdeY2QaVpXYcyuUGg5x4aJe33scgsEVFSq-2mRBC8aA
+
+###
+POST http://localhost:3000/users/refresh
+Content-Type: application/json
+
+{
+    "refreshAuthToken": "{{refreshToken}}"
+}

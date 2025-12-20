@@ -1,0 +1,26 @@
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "emesson@example.com",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "error@example.com",
+    "password": "1234"
+}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "invalid-email.com",
+    "password": "1234567890"
+}
