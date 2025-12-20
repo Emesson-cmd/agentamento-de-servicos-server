@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { WebModule } from './infra/web/web.module';
 import { ConfigModule } from '@nestjs/config';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -9,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
     WebModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
