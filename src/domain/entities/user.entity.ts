@@ -12,6 +12,8 @@ export type UserWithDto = {
   id: string;
   email: string;
   password: string;
+  resetToken?: string;
+  resetTokenExpiresAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -21,6 +23,9 @@ export class User extends Entity {
     id: string,
     private email: string,
     private password: string,
+    private resetToken?: string,
+    private resetTokenExpiresAt?: Date,
+    // @ts-expect-error ignore
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -34,17 +39,35 @@ export class User extends Entity {
     const hashedPassword = Utils.encryptPassword(password);
     const createdAt = new Date();
     const updatedAt = new Date();
-    return new User(id, email, hashedPassword, createdAt, updatedAt);
+    return new User(
+      id,
+      email,
+      hashedPassword,
+      undefined,
+      undefined,
+      createdAt,
+      updatedAt,
+    );
   }
 
   public static with({
     id,
     email,
     password,
+    resetToken,
+    resetTokenExpiresAt,
     createdAt,
     updatedAt,
   }: UserWithDto): User {
-    return new User(id, email, password, createdAt, updatedAt);
+    return new User(
+      id,
+      email,
+      password,
+      resetToken,
+      resetTokenExpiresAt,
+      createdAt,
+      updatedAt,
+    );
   }
 
   protected validate(): void {
@@ -61,5 +84,23 @@ export class User extends Entity {
 
   public comparePassword(password: string): boolean {
     return Utils.comparePassword(password, this.password);
+  }
+
+  public getResetToken(): string | undefined {
+    return this.resetToken;
+  }
+
+  public getResetTokenExpiresAt(): Date | undefined {
+    return this.resetTokenExpiresAt;
+  }
+
+  public setResetToken(token: string, expiresAt: Date): void {
+    this.resetToken = token;
+    this.resetTokenExpiresAt = expiresAt;
+  }
+
+  public clearResetToken(): void {
+    this.resetToken = undefined;
+    this.resetTokenExpiresAt = undefined;
   }
 }

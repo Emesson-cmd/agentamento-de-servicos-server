@@ -31,9 +31,28 @@ export class UserPrismaRepository extends UserGateway {
     return user;
   }
 
+  async findByResetToken(resetToken: string): Promise<User | null> {
+    const model = await prismaClient.user.findFirst({ where: { resetToken } });
+
+    if (!model) return null;
+
+    const user = UserPrismaModelToUserEntityMapper.map(model);
+
+    return user;
+  }
+
   async create(user: User): Promise<void> {
     const model = UserEntityToUserPrismaModelMapper.map(user);
 
     await prismaClient.user.create({ data: model });
+  }
+
+  async update(user: User): Promise<void> {
+    const model = UserEntityToUserPrismaModelMapper.map(user);
+
+    await prismaClient.user.update({
+      where: { id: user.getId() },
+      data: model,
+    });
   }
 }

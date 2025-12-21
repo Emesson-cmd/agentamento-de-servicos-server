@@ -12,9 +12,12 @@ import { RefreshTokenNotValidServiceExceptionFilterProvider } from './filters/in
 import { LoginUserRoute } from './routes/user/login/login-user.route';
 import { RefreshAuthTokenRoute } from './routes/user/refresh-auth-token/refresh-auth-token.route';
 import { FindByIdUserRoute } from './routes/user/find-by-id/find-by-id-user.route';
+import { RequestPasswordResetRoute } from './routes/user/request-password-reset/request-password-reset.route';
+import { ResetPasswordRoute } from './routes/user/reset-password/reset-password.route';
 import { AuthGuardProvider } from './auth/auth.guard';
 import { ServiceModule } from '../services/service.module';
 import { NotAuthorizedUserServiceExceptionFilterProvider } from './filters/infra/services/not-authorized-user-exception.filter';
+import { InvalidResetTokenUsecaseExceptionFilterProvider } from './filters/usecases/invalid-reset-token-usecase-exception.filter';
 
 @Module({
   imports: [ServiceModule, UsecaseModule],
@@ -23,6 +26,8 @@ import { NotAuthorizedUserServiceExceptionFilterProvider } from './filters/infra
     LoginUserRoute,
     RefreshAuthTokenRoute,
     FindByIdUserRoute,
+    RequestPasswordResetRoute,
+    ResetPasswordRoute,
   ],
   providers: [
     AuthGuardProvider,
@@ -35,6 +40,7 @@ import { NotAuthorizedUserServiceExceptionFilterProvider } from './filters/infra
     ServiceExceptionFilterProvider,
     RefreshTokenNotValidServiceExceptionFilterProvider,
     NotAuthorizedUserServiceExceptionFilterProvider,
+    InvalidResetTokenUsecaseExceptionFilterProvider,
   ],
 })
 export class WebModule {}
