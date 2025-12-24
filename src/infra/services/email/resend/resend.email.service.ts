@@ -41,7 +41,7 @@ export class ResendEmailService extends EmailService {
         html: `
           <p>Você solicitou a redefinição de senha.</p>
           <p>Seu token:</p>
-          <strong>${resetToken}</strong>
+          <strong>${process.env.CLIENT_URL}/reset-password?token=${resetToken}</strong>
         `,
       });
     } catch (error) {
