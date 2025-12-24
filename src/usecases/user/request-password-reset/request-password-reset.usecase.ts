@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { addHours } from 'date-fns';
 import { UserGateway } from 'src/domain/repositories/user.gateway';
 import { Utils } from 'src/shared/utils/utils';
 import { EmailService } from 'src/infra/services/email/email.service';
 import { UserNotFoundUsecaseException } from 'src/usecases/exceptions/user-not-found.usecase.exception';
 import { Usecase } from 'src/usecases/usecase';
+import { EMAIL_SERVICE } from 'src/infra/services/email.constants';
 
 export type RequestPasswordResetInput = {
   email: string;
@@ -18,6 +19,7 @@ export class RequestPasswordResetUsecase
 {
   public constructor(
     private readonly userGateway: UserGateway,
+    @Inject(EMAIL_SERVICE)
     private readonly emailService: EmailService,
   ) {}
 

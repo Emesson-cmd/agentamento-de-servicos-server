@@ -65,7 +65,7 @@ export class NodemailerEmailService extends EmailService {
       to: email,
       subject: 'Password Reset',
       text: `Your password reset token is: ${resetToken}`,
-      html: `<p>Your password reset token is: <strong>${resetToken}</strong></p>`,
+      html: `<p>Your password reset link is: <strong>${process.env.CLIENT_URL}/reset-password?token=${resetToken}</strong></p>`,
     };
 
     try {
