@@ -7,12 +7,15 @@ export class UserPrismaModelToUserEntityMapper {
       id: user.id,
       email: user.email,
       password: user.password,
-      resetToken: user.resetToken ? (user.resetToken as string) : undefined,
-      resetTokenExpiresAt: user.resetTokenExpiresAt
-        ? (user.resetTokenExpiresAt as Date)
-        : undefined,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+      name: user.name,
+      phone: user.phone,
+      role: user.role,
+      resetToken: user.resetToken ? user.resetToken : undefined,
+      resetTokenExpiresAt: user.resetTokenExpiresAt
+        ? user.resetTokenExpiresAt
+        : undefined,
     });
 
     return anUser;

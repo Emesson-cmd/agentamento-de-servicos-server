@@ -8,6 +8,9 @@ export class FindByIdUserPresenter {
       email: input.email,
       createdAt: input.createdAt,
       updatedAt: input.updatedAt,
+      name: input.name,
+      phone: input.phone,
+      role: input.role,
     };
   }
 }

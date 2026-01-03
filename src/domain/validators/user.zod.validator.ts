@@ -40,6 +40,10 @@ export class UserZodValidator implements Validator<User> {
       password: z.string(),
       createdAt: z.date(),
       updatedAt: z.date(),
+      name: z.string(),
+      phone: z.string(),
+      role: z.enum(['ADMIN', 'BARBER', 'CLIENT']),
+      isActive: z.boolean(),
     });
 
     return zodSchema;

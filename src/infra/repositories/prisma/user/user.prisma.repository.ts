@@ -4,6 +4,7 @@ import { UserPrismaModelToUserEntityMapper } from './model/mappers/user-prisma-m
 import { User } from 'src/domain/entities/user.entity';
 import { UserEntityToUserPrismaModelMapper } from './model/mappers/user-entity-to-user-prisma-model.mapper';
 import { Injectable } from '@nestjs/common';
+import { UserPrismaModel } from './model/user.prisma.model';
 
 @Injectable()
 export class UserPrismaRepository extends UserGateway {
@@ -42,7 +43,7 @@ export class UserPrismaRepository extends UserGateway {
   }
 
   async create(user: User): Promise<void> {
-    const model = UserEntityToUserPrismaModelMapper.map(user);
+    const model: UserPrismaModel = UserEntityToUserPrismaModelMapper.map(user);
 
     await prismaClient.user.create({ data: model });
   }

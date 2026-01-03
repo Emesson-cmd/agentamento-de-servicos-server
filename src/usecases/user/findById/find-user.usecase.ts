@@ -12,6 +12,9 @@ export type FindUserOutput = {
   email: string;
   createdAt: Date;
   updatedAt: Date;
+  name: string;
+  phone: string;
+  role: string;
 };
 
 export
@@ -34,6 +37,9 @@ class FindUserUsecase implements Usecase<FindUserInput, FindUserOutput> {
       email: user.getEmail(),
       createdAt: user.getCreatedAt(),
       updatedAt: user.getUpdatedAt(),
+      name: user.getName(),
+      phone: user.getPhone(),
+      role: user.getRole(),
     };
 
     return output;

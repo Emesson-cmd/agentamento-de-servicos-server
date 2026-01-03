@@ -2,20 +2,27 @@ import { Entity } from '../shared/entities/entity';
 import { Utils } from '../../shared/utils/utils';
 import { UserValidatorFactory } from '../factories/user-validator.factory';
 import { UserPasswordValidatorFactory } from '../factories/user-password.validator.factory';
+import { UserRole } from '@prisma/client';
 
 export type UserCreateDto = {
   email: string;
   password: string;
+  name: string;
+  role: UserRole;
+  phone: string;
 };
 
 export type UserWithDto = {
   id: string;
   email: string;
   password: string;
+  createdAt: Date;
+  name: string;
+  phone: string;
+  role: UserRole;
+  updatedAt: Date;
   resetToken?: string;
   resetTokenExpiresAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
 };
 
 export class User extends Entity {
@@ -23,30 +30,47 @@ export class User extends Entity {
     id: string,
     private email: string,
     private password: string,
-    private resetToken?: string,
-    private resetTokenExpiresAt?: Date,
-    // @ts-expect-error ignore
     createdAt: Date,
     updatedAt: Date,
+    private name: string,
+    private phone: string,
+    private role: UserRole,
+    private isActive: boolean,
+    private resetToken?: string,
+    private resetTokenExpiresAt?: Date,
   ) {
     super(id, createdAt, updatedAt);
     this.validate();
   }
 
-  public static create({ email, password }: UserCreateDto): User {
+  public static create({
+    email,
+    password,
+    name,
+    phone,
+    role,
+  }: UserCreateDto): User {
     const id = Utils.generateUUID();
     UserPasswordValidatorFactory.create().validate(password);
     const hashedPassword = Utils.encryptPassword(password);
+    const isActive = true;
     const createdAt = new Date();
     const updatedAt = new Date();
+    const resetToken = undefined;
+    const resetTokenExpiresAt = undefined;
+
     return new User(
       id,
       email,
       hashedPassword,
-      undefined,
-      undefined,
       createdAt,
       updatedAt,
+      name,
+      phone,
+      role,
+      isActive,
+      resetToken,
+      resetTokenExpiresAt,
     );
   }
 
@@ -54,19 +78,26 @@ export class User extends Entity {
     id,
     email,
     password,
-    resetToken,
-    resetTokenExpiresAt,
     createdAt,
     updatedAt,
+    name,
+    role,
+    phone,
+    resetToken,
+    resetTokenExpiresAt,
   }: UserWithDto): User {
     return new User(
       id,
       email,
       password,
-      resetToken,
-      resetTokenExpiresAt,
       createdAt,
       updatedAt,
+      name,
+      phone,
+      role,
+      true,
+      resetToken,
+      resetTokenExpiresAt,
     );
   }
 
@@ -84,6 +115,22 @@ export class User extends Entity {
 
   public comparePassword(password: string): boolean {
     return Utils.comparePassword(password, this.password);
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getPhone(): string {
+    return this.phone;
+  }
+
+  public getRole(): UserRole {
+    return this.role;
+  }
+
+  public getIsActive(): boolean {
+    return this.isActive;
   }
 
   public getResetToken(): string | undefined {

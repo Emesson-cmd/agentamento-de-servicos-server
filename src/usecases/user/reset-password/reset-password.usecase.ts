@@ -49,10 +49,13 @@ export class ResetPasswordUsecase
       id: user.getId(),
       email: user.getEmail(),
       password: hashedPassword,
-      resetToken: undefined,
-      resetTokenExpiresAt: undefined,
       createdAt: user.getCreatedAt(),
       updatedAt: new Date(),
+      name: user.getName(),
+      phone: user.getPhone(),
+      role: user.getRole(),
+      resetToken: undefined,
+      resetTokenExpiresAt: undefined,
     });
 
     await this.userGateway.update(updatedUser);
