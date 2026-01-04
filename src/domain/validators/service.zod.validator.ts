@@ -34,13 +34,13 @@ export class ServiceZodValidator {
 
   private getZodSchema() {
     const zodSchema = z.object({
-      barberShopId: z.string(),
-      id: z.string().uuid(),
+      barberShopId: z.uuid(),
+      id: z.uuid(),
       createdAt: z.date(),
       updatedAt: z.date(),
-      name: z.string(),
-      price: z.number(),
-      durationMin: z.number(),
+      name: z.string().min(3).max(100),
+      price: z.number().min(1),
+      durationMin: z.number().min(1),
       description: z.string().optional(),
     });
 

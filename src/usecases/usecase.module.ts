@@ -7,6 +7,8 @@ import { RequestPasswordResetUsecase } from './user/request-password-reset/reque
 import { ResetPasswordUsecase } from './user/reset-password/reset-password.usecase';
 import { DatabaseModule } from 'src/infra/repositories/prisma/database.module';
 import { ServiceModule } from 'src/infra/services/service.module';
+import { CreateServiceUsecase } from './service/create/create-service.usecase';
+import { FindServiceUsecase } from './service/findById/find-service.usecase';
 
 @Module({
   imports: [DatabaseModule, ServiceModule],
@@ -17,6 +19,8 @@ import { ServiceModule } from 'src/infra/services/service.module';
     RefreshAuthTokenUserUsecase,
     RequestPasswordResetUsecase,
     ResetPasswordUsecase,
+    CreateServiceUsecase,
+    FindServiceUsecase,
   ],
   exports: [
     CreateUserUsecase,
@@ -25,6 +29,8 @@ import { ServiceModule } from 'src/infra/services/service.module';
     RefreshAuthTokenUserUsecase,
     RequestPasswordResetUsecase,
     ResetPasswordUsecase,
+    CreateServiceUsecase,
+    FindServiceUsecase,
   ],
 })
 export class UsecaseModule {}

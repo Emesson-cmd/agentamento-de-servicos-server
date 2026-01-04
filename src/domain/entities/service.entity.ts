@@ -8,13 +8,13 @@ export type ServiceCreateDto = {
   description?: string;
   price: number;
   durationMin: number;
-  isActive: boolean;
 };
 
 export type ServiceWithDto = ServiceCreateDto & {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+  isActive: boolean;
 };
 
 export class Service extends Entity {

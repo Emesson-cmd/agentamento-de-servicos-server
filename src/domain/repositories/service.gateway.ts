@@ -6,4 +6,5 @@ export abstract class ServiceGateway {
   abstract delete(id: string): Promise<void>;
   abstract findAll(): Promise<Service[]>;
   abstract findById(id: string): Promise<Service | null>;
+  abstract findByName(name: string): Promise<Service | null>;
 }

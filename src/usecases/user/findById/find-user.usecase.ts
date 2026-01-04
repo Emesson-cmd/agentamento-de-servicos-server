@@ -17,9 +17,8 @@ export type FindUserOutput = {
   role: string;
 };
 
-export
 @Injectable()
-class FindUserUsecase implements Usecase<FindUserInput, FindUserOutput> {
+export class FindUserUsecase implements Usecase<FindUserInput, FindUserOutput> {
   public constructor(private readonly userGateway: UserGateway) {}
 
   public async execute({ id }: FindUserInput): Promise<FindUserOutput> {

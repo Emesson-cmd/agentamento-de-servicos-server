@@ -42,6 +42,16 @@ export class ServicePrismaRepository extends ServiceGateway {
     return service;
   }
 
+  async findByName(name: string): Promise<Service | null> {
+    const model = await prismaClient.service.findFirst({ where: { name } });
+
+    if (!model) return null;
+
+    const service = ServicePrismaModelToServiceEntityMapper.map(model);
+
+    return service;
+  }
+
   async findAll(): Promise<Service[]> {
     const models = await prismaClient.service.findMany({});
 

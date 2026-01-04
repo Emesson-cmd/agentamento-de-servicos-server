@@ -18,16 +18,25 @@ import { AuthGuardProvider } from './auth/auth.guard';
 import { ServiceModule } from '../services/service.module';
 import { NotAuthorizedUserServiceExceptionFilterProvider } from './filters/infra/services/not-authorized-user-exception.filter';
 import { InvalidResetTokenUsecaseExceptionFilterProvider } from './filters/usecases/invalid-reset-token-usecase-exception.filter';
+import { CreateServiceRoute } from './routes/service/create/create-service.route';
+import { ServiceAlreadyExistsUsecaseExceptionFilterProvider } from './filters/usecases/service-already-exists-usecase-exception.filter copy';
+import { ServiceNotFoundUsecaseExceptionFilterProvider } from './filters/usecases/service-not-found-usecase-exception.filter copy';
+import { FindByIdServiceRoute } from './routes/service/find-by-id/find-by-id-service.route';
 
 @Module({
   imports: [ServiceModule, UsecaseModule],
   controllers: [
+    // User
     CreateUserRoute,
     LoginUserRoute,
     RefreshAuthTokenRoute,
     FindByIdUserRoute,
     RequestPasswordResetRoute,
     ResetPasswordRoute,
+
+    // Service
+    CreateServiceRoute,
+    FindByIdServiceRoute,
   ],
   providers: [
     AuthGuardProvider,
@@ -41,6 +50,8 @@ import { InvalidResetTokenUsecaseExceptionFilterProvider } from './filters/useca
     RefreshTokenNotValidServiceExceptionFilterProvider,
     NotAuthorizedUserServiceExceptionFilterProvider,
     InvalidResetTokenUsecaseExceptionFilterProvider,
+    ServiceAlreadyExistsUsecaseExceptionFilterProvider,
+    ServiceNotFoundUsecaseExceptionFilterProvider,
   ],
 })
 export class WebModule {}
