@@ -34,6 +34,7 @@ export class ServiceZodValidator {
 
   private getZodSchema() {
     const zodSchema = z.object({
+      barberShopId: z.string(),
       id: z.string().uuid(),
       createdAt: z.date(),
       updatedAt: z.date(),

@@ -3,10 +3,12 @@ import { Entity } from '../shared/entities/entity';
 import { ServiceValidatorServiceFactory } from '../factories/service-validator.factory';
 
 export type ServiceCreateDto = {
+  barberShopId: string;
   name: string;
   description?: string;
   price: number;
   durationMin: number;
+  isActive: boolean;
 };
 
 export type ServiceWithDto = ServiceCreateDto & {
@@ -17,12 +19,14 @@ export type ServiceWithDto = ServiceCreateDto & {
 
 export class Service extends Entity {
   private constructor(
+    private barberShopId: string,
     id: string,
     createdAt: Date,
     updatedAt: Date,
     private name: string,
     private price: number,
     private durationMin: number,
+    private isActive: boolean,
     private description?: string,
   ) {
     super(id, createdAt, updatedAt);
@@ -30,6 +34,7 @@ export class Service extends Entity {
   }
 
   public static create({
+    barberShopId,
     name,
     description,
     price,
@@ -38,18 +43,22 @@ export class Service extends Entity {
     const id = Utils.generateUUID();
     const createdAt = new Date();
     const updatedAt = new Date();
+    const isActive = true;
     return new Service(
+      barberShopId,
       id,
       createdAt,
       updatedAt,
       name,
       price,
       durationMin,
+      isActive,
       description,
     );
   }
 
   public static with({
+    barberShopId,
     id,
     createdAt,
     updatedAt,
@@ -59,12 +68,14 @@ export class Service extends Entity {
     description,
   }: ServiceWithDto): Service {
     return new Service(
+      barberShopId,
       id,
       createdAt,
       updatedAt,
       name,
       price,
       durationMin,
+      true,
       description,
     );
   }
@@ -103,5 +114,13 @@ export class Service extends Entity {
 
   public getDurationMin(): number {
     return this.durationMin;
+  }
+
+  public getIsActive(): boolean {
+    return this.isActive;
+  }
+
+  public getBarberShopId(): string {
+    return this.barberShopId;
   }
 }
